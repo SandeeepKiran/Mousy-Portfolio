@@ -44,9 +44,10 @@ fi
 export_branch "$live" "$out"
 
 for b in $branches; do
-  # A branch name becomes part of the web address, so keep it URL-friendly.
-  if [[ ! $b =~ ^[a-z0-9][a-z0-9-]*$ ]]; then
-    echo "::warning::Skipped branch '$b': use only lowercase letters, digits and dashes (example: david-gold-trial)."
+  # A branch name becomes part of the web address, so keep it URL-friendly. Capitals are fine,
+  # but the address is case-sensitive: MousyGenshinPreview is /MousyGenshinPreview/.
+  if [[ ! $b =~ ^[A-Za-z0-9][A-Za-z0-9-]*$ ]]; then
+    echo "::warning::Skipped branch '$b': use only letters, digits and dashes (example: david-gold-trial)."
     continue
   fi
   # Never let a branch folder overwrite a real file or folder of the live design (e.g. 'assets').

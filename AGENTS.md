@@ -28,10 +28,12 @@ Design work happens on design branches (`david`, `jonny`, trials). Each has its 
 
 - Each design branch keeps `.github/workflows/ping-deploy.yml`. Without it, pushes to that branch
   do not redeploy. Do not put a full deploy workflow on design branches.
-- Branch names: lowercase letters, digits and dashes (they become URLs). Never `main`-only content
+- Branch names: letters, digits and dashes (they become case-sensitive URLs). Never `main`-only content
   on a design branch, and never a branch called `kitsune-labs` (that path is another project).
 - Designs must use **relative paths** (`css/x.css`, `./`), never root paths (`/css/x.css`).
 - **Originality:** no code, text or assets copied from other websites, and do not name or credit
   other sites anywhere in this repo. Private design notes live outside the repo.
 - Contact email on portfolio pages: `sandeeepkiran@gmail.com`.
 - Only Claude Code pushes to GitHub (Sandeep's personal account).
+- Keep `CHANGELOG.md` (on `main`) current. A change to any design is a new version there, with a
+  matching `vX.Y.Z` tag and GitHub Release.
