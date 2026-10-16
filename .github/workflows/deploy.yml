@@ -1,0 +1,50 @@
+# Publishes every design branch to GitHub Pages:
+#   https://sandeeepkiran.github.io/Mousy-Portfolio/           -> the branch named in live.txt
+#   https://sandeeepkiran.github.io/Mousy-Portfolio/<branch>/  -> each design branch
+#
+# Runs when main changes (e.g. you edit live.txt), when a branch is deleted, on the
+# "Run workflow" button, and when a design branch is pushed (its small ping-deploy.yml
+# starts this workflow, because a push only runs the workflows stored on that branch).
+name: Deploy all branches
+
+on:
+  push:
+    branches: [main]
+  delete:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time; a newer one replaces a queued older one.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0   # fetch every branch, not just main
+
+      - name: Build the site from all branches
+        run: bash .github/build-site.sh "$GITHUB_WORKSPACE" "$RUNNER_TEMP/site" "$(cat live.txt)"
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: ${{ runner.temp }}/site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
