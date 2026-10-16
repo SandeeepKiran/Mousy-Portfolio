@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sandeep Kiran — QA Manager</title>
+  <meta name="description" content="Sandeep Kiran, QA Manager at SoundHound AI. GenAI and conversational voice AI, LLM evaluation, AI agents. Based in Bengaluru, India.">
+  <meta name="theme-color" content="#f5efe6">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' rx='8' fill='%232d2a24'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='900' font-size='13' fill='%23f5efe6' text-anchor='middle'%3ESK%3C/text%3E%3C/svg%3E">
+
+  <!-- Free Google Fonts. If you are offline the site still works; it falls back to system fonts. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;700;800;900&family=Silkscreen:wght@400;700&family=Space+Mono:wght@400;700&display=swap">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============================================================
+       HEADER — fixed at the top. On desktop it shows the logo, the
+       pill-shaped section nav and the "Get in touch" button. On small
+       screens only the logo stays.
+       ============================================================ -->
+  <header class="site-header" data-header>
+    <a class="logo" href="#home" aria-label="Sandeep Kiran — back to top">
+      <svg viewBox="0 0 40 40" width="32" height="32" aria-hidden="true">
+        <rect x="3" y="3" width="34" height="34" rx="10" fill="none" stroke="currentColor" stroke-width="3"/>
+        <text x="20" y="25.5" text-anchor="middle" font-family="Urbanist, Segoe UI, sans-serif" font-weight="900" font-size="15" fill="currentColor">SK</text>
+      </svg>
+    </a>
+
+    <nav class="site-nav" aria-label="Sections">
+      <a class="site-nav__link" href="#about" data-nav="about">About</a>
+      <a class="site-nav__link" href="#projects" data-nav="projects">Projects</a>
+      <a class="site-nav__link" href="#contact" data-nav="contact">Contact</a>
+    </nav>
+
+    <a class="button button--accent site-header__cta" href="mailto:sandeeepkiran@gmail.com">Get in touch</a>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================================================
+         HERO — big name + tilted job-title tag + illustration.
+         The illustration is drawn with plain CSS boxes (see the
+         "HERO SCENE" part of css/styles.css). To use your own picture
+         instead, replace the whole <div class="hero-scene"> with:
+         <img class="hero-image" src="images/hero.png" alt="">
+         ============================================================ -->
+    <section id="home" class="hero" data-hero aria-labelledby="hero-title">
+      <div class="hero__text">
+        <h1 id="hero-title" class="hero__title">
+          <span>Sandeep</span>
+          <span>Kiran</span>
+        </h1>
+        <p class="tag tag--hero"><span class="tag__text">QA Manager</span></p>
+      </div>
+
+      <div class="hero-scene" aria-hidden="true">
+        <div class="scene-rug"></div>
+
+        <div class="scene-shelf">
+          <span class="scene-book scene-book--1"></span>
+          <span class="scene-book scene-book--2"></span>
+          <span class="scene-pot"><i></i></span>
+        </div>
+
+        <div class="scene-board">
+          <span class="scene-note scene-note--1"><i></i></span>
+          <span class="scene-note scene-note--2"><i></i></span>
+        </div>
+
+        <span class="scene-frame"></span>
+
+        <div class="scene-desk">
+          <div class="scene-monitor scene-monitor--left">
+            <i></i><i></i><i></i><i></i><i></i>
+          </div>
+          <div class="scene-monitor scene-monitor--right">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+          <span class="scene-cup"></span>
+          <span class="scene-speaker"></span>
+          <span class="scene-desktop"></span>
+          <span class="scene-leg scene-leg--1"></span>
+          <span class="scene-leg scene-leg--2"></span>
+        </div>
+
+        <div class="scene-person">
+          <span class="scene-person__head"></span>
+          <span class="scene-person__body"></span>
+          <span class="scene-person__chair"></span>
+        </div>
+
+        <div class="scene-plant">
+          <span class="scene-leaf scene-leaf--1"></span>
+          <span class="scene-leaf scene-leaf--2"></span>
+          <span class="scene-leaf scene-leaf--3"></span>
+          <span class="scene-plant__pot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ABOUT — a blue "hologram" stage. It stays pinned to the screen
+         while you scroll; a scan line turns the figure into a hologram
+         and the three info cards appear one after another.
+         The scroll logic lives in js/main.js (updateAbout).
+         ============================================================ -->
+    <section id="about" class="about" data-about aria-labelledby="about-title">
+      <div class="about__stage">
+        <div class="about__glow" aria-hidden="true"></div>
+        <div class="about__floor" aria-hidden="true"><div class="about__grid"></div></div>
+
+        <h2 id="about-title" class="visually-hidden">About me</h2>
+
+        <!-- Decorative figure. Two copies of the same drawing are stacked:
+             the "solid" one on top and the "holo" one underneath. The scan
+             line reveals the holo copy from the feet up. -->
+        <div class="holo" aria-hidden="true">
+          <div class="holo__beam"></div>
+          <div class="holo__figure holo__figure--holo">
+            <svg viewBox="0 0 200 440" preserveAspectRatio="xMidYMax meet">
+              <defs>
+                <pattern id="holo-stripes" width="4" height="4" patternUnits="userSpaceOnUse">
+                  <rect width="4" height="2" fill="rgba(120, 225, 255, 0.85)"/>
+                  <rect y="2" width="4" height="2" fill="rgba(40, 150, 255, 0.35)"/>
+                </pattern>
+              </defs>
+              <g fill="url(#holo-stripes)" stroke="#8ae8ff" stroke-width="2">
+                <rect x="38" y="160" width="26" height="110" rx="13"/>
+                <rect x="136" y="160" width="26" height="110" rx="13"/>
+                <rect x="66" y="250" width="32" height="140" rx="12"/>
+                <rect x="102" y="250" width="32" height="140" rx="12"/>
+                <ellipse cx="80" cy="395" rx="26" ry="14"/>
+                <ellipse cx="120" cy="395" rx="26" ry="14"/>
+                <rect x="54" y="148" width="92" height="118" rx="26"/>
+                <circle cx="100" cy="86" r="62"/>
+              </g>
+            </svg>
+          </div>
+          <div class="holo__figure holo__figure--solid">
+            <svg viewBox="0 0 200 440" preserveAspectRatio="xMidYMax meet">
+              <rect x="38" y="160" width="26" height="110" rx="13" fill="#f1c6a2"/>
+              <rect x="136" y="160" width="26" height="110" rx="13" fill="#f1c6a2"/>
+              <rect x="66" y="250" width="32" height="140" rx="12" fill="#26252c"/>
+              <rect x="102" y="250" width="32" height="140" rx="12" fill="#26252c"/>
+              <ellipse cx="80" cy="395" rx="26" ry="14" fill="#f4f4f4"/>
+              <ellipse cx="120" cy="395" rx="26" ry="14" fill="#f4f4f4"/>
+              <rect x="54" y="148" width="92" height="118" rx="26" fill="#4b4a49"/>
+              <circle cx="100" cy="86" r="62" fill="#f6d2b4"/>
+              <path d="M38 80 C40 30 80 14 112 20 C150 26 166 54 162 84 C150 60 120 50 90 52 C66 54 50 64 38 80 Z" fill="#8b5d40"/>
+              <circle cx="78" cy="96" r="9" fill="#3a2320"/>
+              <circle cx="122" cy="96" r="9" fill="#3a2320"/>
+            </svg>
+          </div>
+          <div class="holo__scanline"></div>
+          <div class="holo__platform"><span></span></div>
+        </div>
+
+        <div class="about__cards">
+          <article class="holo-card holo-card--name" data-step="0">
+            <h3 class="holo-card__title">Sandeep Kiran</h3>
+            <ul class="holo-card__locations">
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="currentColor"/></svg>Bengaluru, India</li>
+            </ul>
+          </article>
+
+          <article class="holo-card holo-card--bio" data-step="1">
+            <p>QA Manager @ SoundHound AI. I lead a QA team and build AI-driven test systems: LLM tester agents, LLM-as-judge evaluation and voice AI testing.</p>
+          </article>
+
+          <article class="holo-card holo-card--skills" data-step="2">
+            <h3 class="holo-card__title">Skills</h3>
+            <ul class="holo-card__list">
+              <li>LLM evaluation</li>
+              <li>AI agents &amp; RAG</li>
+              <li>Voice AI (ASR, TTS)</li>
+              <li>Playwright &amp; pytest</li>
+              <li>Test strategy</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Scan counter (desktop) and progress bar (mobile). Decorative only. -->
+        <p class="about__counter" aria-hidden="true" data-counter>100</p>
+        <div class="about__progress" aria-hidden="true">
+          <span class="about__progress-bar"><i></i></span>
+          <span class="about__progress-value" data-percent>100%</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PROJECTS — 5 project cards + 1 special "next project" card in a
+         2-column grid (1 column on phones).
+         The cards are built from the list in js/projects.js. Edit that
+         file to change titles, descriptions, links and images.
+         ============================================================ -->
+    <section id="projects" class="projects" aria-labelledby="projects-title">
+      <div class="projects__inner">
+        <div class="section-heading">
+          <p class="tag tag--small"><span class="tag__text">Selected</span></p>
+          <h2 id="projects-title" class="section-title">Projects</h2>
+        </div>
+
+        <ul class="project-grid" data-project-grid>
+          <!-- Filled in by js/main.js from js/projects.js -->
+        </ul>
+        <noscript>
+          <p class="noscript-note">Turn on JavaScript to see the project cards.</p>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONTACT — big heading, round social icons, small illustration.
+         ============================================================ -->
+    <section id="contact" class="contact" aria-labelledby="contact-title">
+      <div class="contact__inner">
+        <h2 id="contact-title" class="section-title">Let's work<br>together!</h2>
+
+        <ul class="socials">
+          <li><a class="social" href="mailto:sandeeepkiran@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          </a></li>
+          <li><a class="social" href="https://github.com/SandeeepKiran" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a></li>
+          <li><a class="social" href="https://www.linkedin.com/in/sandeeepkiran/" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="9.5" width="3.4" height="10" rx="0.8" fill="currentColor"/><circle cx="5.7" cy="5.6" r="2" fill="currentColor"/><path d="M10.5 19.5v-10h3.2v1.6c.7-1.2 2-1.9 3.5-1.9 2.4 0 3.6 1.5 3.6 4.3v6h-3.3v-5.4c0-1.4-.5-2.1-1.6-2.1-1.2 0-2 .9-2 2.4v5.1Z" fill="currentColor"/></svg>
+          </a></li>
+          <li><a class="social" href="https://t.me/Sandeeep" aria-label="Telegram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4 3 11.2l6 2.3L18 7l-6.8 7.6.3 5.4 3-3.6 4 3.1Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          </a></li>
+        </ul>
+      </div>
+
+      <!-- Decorative CSS drawing: a few parcels and letters. -->
+      <div class="contact-scene" aria-hidden="true">
+        <span class="parcel parcel--1"></span>
+        <span class="parcel parcel--2"></span>
+        <span class="parcel parcel--3"></span>
+        <span class="parcel parcel--4"></span>
+        <span class="letter letter--1"></span>
+        <span class="letter letter--2"></span>
+        <span class="letter letter--3"></span>
+        <svg class="contact-figure" viewBox="0 0 200 440" preserveAspectRatio="xMidYMax meet">
+          <ellipse cx="100" cy="420" rx="80" ry="14" fill="rgba(90, 60, 20, 0.12)"/>
+          <rect x="66" y="250" width="32" height="140" rx="12" fill="#26252c"/>
+          <rect x="102" y="250" width="32" height="140" rx="12" fill="#26252c"/>
+          <ellipse cx="80" cy="398" rx="26" ry="14" fill="#f4f4f4"/>
+          <ellipse cx="120" cy="398" rx="26" ry="14" fill="#f4f4f4"/>
+          <rect x="54" y="148" width="92" height="118" rx="26" fill="#4b4a49"/>
+          <rect x="48" y="190" width="104" height="30" rx="15" fill="#f1c6a2"/>
+          <circle cx="100" cy="86" r="62" fill="#f6d2b4"/>
+          <path d="M38 80 C40 30 80 14 112 20 C150 26 166 54 162 84 C150 60 120 50 90 52 C66 54 50 64 38 80 Z" fill="#8b5d40"/>
+          <circle cx="78" cy="96" r="9" fill="#3a2320"/>
+          <circle cx="122" cy="96" r="9" fill="#3a2320"/>
+          <path d="M90 122 Q100 128 110 122" fill="none" stroke="#3a2320" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <a class="round-button" href="#home" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+
+    <ul class="site-footer__links">
+      <li><a href="assets/Sandeep-Kiran-Resume.pdf">Résumé</a></li>
+      <li><a href="https://github.com/SandeeepKiran">GitHub</a></li>
+    </ul>
+
+    <div class="site-footer__meta">
+      <p>Bengaluru, India</p>
+      <p>&copy; <span data-year>2026</span> Sandeep Kiran</p>
+    </div>
+  </footer>
+
+  <!-- Plain scripts (not modules) so the site also works when you
+       double-click index.html. projects.js must load before main.js. -->
+  <script src="js/projects.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Lives on every DESIGN branch (david, jonny, trials...). Do not delete it.
+# A push only runs the workflows stored on the pushed branch, so this tiny file asks
+# main's "Deploy all branches" workflow to rebuild the whole site with your change.
+# New branches made from a design branch inherit it, so they publish automatically.
+name: Ask main to redeploy
+
+on:
+  push:
+
+permissions:
+  actions: write
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start the deploy on main
+        run: gh workflow run deploy.yml --repo "$GITHUB_REPOSITORY" --ref main
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,0 +1,963 @@
+/* ==========================================================================
+   Sandeep Kiran — portfolio styles
+   Written from scratch.
+
+   Sections in this file:
+     1. Design tokens (colours, fonts, sizes)  ← change the look here
+     2. Base / reset
+     3. Shared bits (buttons, tags, headings)
+     4. Header
+     5. Hero + hero scene drawing
+     6. About (hologram stage)
+     7. Projects (5 + 1 grid)
+     8. Contact
+     9. Footer
+    10. Small screens
+    11. Reduced motion
+   ========================================================================== */
+
+/* 1. Design tokens --------------------------------------------------------- */
+:root {
+  --cream: #f5efe6;          /* page background */
+  --sand: #f1e5d5;           /* nav pill, image boxes */
+  --sand-dark: #ebdfcf;      /* card hover */
+  --beige: #ece0d0;          /* contact band */
+  --ink: #2d2a24;            /* main text */
+  --ink-soft: #5f5646;       /* secondary text */
+  --line: #dfd2bf;           /* dashed borders, outlines */
+
+  --accent: #ff8400;         /* orange buttons + active nav */
+  /* Text colour on orange. Dark ink passes WCAG contrast; white (#fff) only reaches about 2.5:1 on this orange. */
+  --on-accent: #2d2a24;
+
+  --navy: #1f3a78;           /* tilted "tag" labels */
+  --blue-deep: #011763;      /* About stage edges */
+  --blue: #0748b8;           /* About stage centre */
+  --cyan: #8ae8ff;           /* hologram glow */
+  --holo-text: #e1f5ff;
+
+  --font-main: "Urbanist", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-tag: "Silkscreen", "Consolas", monospace;
+  --font-mono: "Space Mono", "Consolas", "Courier New", monospace;
+
+  --radius-section: 48px;    /* rounded bottom corners of the big panels */
+  --radius-card: 16px;
+  --content-width: 920px;    /* projects grid width */
+  --header-height: 96px;
+}
+
+/* 2. Base ------------------------------------------------------------------ */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-main);
+  letter-spacing: 0.02em;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;   /* the tilting hero and drawings may poke out sideways */
+}
+
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+
+:focus-visible {
+  outline: 3px solid var(--navy);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px; left: 12px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 100px;
+  background: var(--ink);
+  color: var(--cream);
+  font-weight: 700;
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: none; }
+
+/* 3. Shared bits ----------------------------------------------------------- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 26px;
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.button--accent { background: var(--accent); color: var(--on-accent); }
+.button:hover { filter: brightness(1.06); transform: translateY(-1px); }
+
+/* Small tilted navy label, like a sticker slapped on the heading. */
+.tag {
+  display: inline-block;
+  background: var(--navy);
+  color: #fff;
+  font-family: var(--font-tag);
+  line-height: 1;
+  transform: rotate(-6deg);
+}
+.tag__text { display: block; }
+
+.section-title {
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 900;
+  line-height: 1.11;
+  letter-spacing: 0.02em;
+}
+
+/* 4. Header ---------------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 20px;
+  pointer-events: none;       /* let clicks pass through the empty middle */
+}
+.site-header > * { pointer-events: auto; }
+
+.logo {
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  color: var(--ink);
+  transition: color 0.2s ease;
+}
+
+.site-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  padding: 3px;
+  border-radius: 100px;
+  background: var(--sand);
+  transition: background-color 0.2s ease;
+}
+
+.site-nav__link {
+  width: 128px;
+  padding: 4px 0;
+  border-radius: 100px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.site-nav__link:hover { background: rgba(45, 42, 36, 0.08); }
+.site-nav__link.is-active { background: var(--accent); color: var(--on-accent); }
+
+/* Dark variant while the header floats over the blue About stage. */
+.site-header--dark .logo { color: #fff; }
+.site-header--dark .site-nav { background: rgba(4, 30, 110, 0.85); }
+.site-header--dark .site-nav__link { color: #fff; }
+.site-header--dark .site-nav__link:hover { background: rgba(255, 255, 255, 0.1); }
+.site-header--dark .site-nav__link.is-active { background: #0a6fbb; color: #fff; }
+
+/* 5. Hero ------------------------------------------------------------------ */
+.hero {
+  --lift: 0;                  /* 0 → 1 while scrolling away; set by main.js */
+  position: relative;
+  z-index: 2;                 /* sits on top of the pinned About stage */
+  height: 100vh;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--cream);
+  transform-origin: 50% 100%;
+  transform: rotate(calc(var(--lift) * -4deg)) scale(calc(1 - var(--lift) * 0.06));
+  border-radius: 0 0 calc(var(--lift) * 64px) calc(var(--lift) * 64px);
+  box-shadow: 0 30px 60px rgba(0, 10, 50, calc(var(--lift) * 0.35));
+}
+
+.hero__text {
+  position: absolute;
+  z-index: 3;
+  left: 8.5%;
+  top: 50%;
+  transform: translateY(-58%);
+}
+
+.hero__title {
+  font-size: clamp(56px, 6.1vw, 88px);
+  font-weight: 900;
+  line-height: 1.09;
+  letter-spacing: 0.02em;
+}
+.hero__title span { display: block; }
+
+.tag--hero {
+  position: absolute;
+  right: -40px;
+  bottom: -30px;
+  padding: 8px 12px 6px;
+  font-size: clamp(18px, 1.95vw, 28px);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* "Typing" reveal of the tag text when the page loads. */
+.js .tag--hero .tag__text {
+  animation: type-in 0.9s steps(11, end) 0.4s both;
+}
+@keyframes type-in {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+/* ---- Hero scene: a desk drawn with plain boxes. Purely decorative. ----
+   Every piece is positioned in % of the scene box, so it scales with it. */
+.hero-scene {
+  position: absolute;
+  right: -2%;
+  bottom: -4%;
+  width: min(66vw, 1020px);
+  aspect-ratio: 1.12;
+}
+.hero-scene * { position: absolute; display: block; }
+
+.scene-rug {
+  left: 6%; bottom: -30%;
+  width: 78%; height: 70%;
+  border-radius: 6%;
+  background: #f4dc7c;
+  box-shadow: 0 0 0 4.5vw #f2b845, 0 0 0 9vw #ec8a26;
+  transform: rotateX(62deg) rotateZ(-34deg);
+}
+
+.scene-shelf {
+  left: 36%; top: 23%;
+  width: 16%; height: 2.2%;
+  border-radius: 6px;
+  background: #e6cc98;
+  box-shadow: 0 10px 18px rgba(80, 50, 10, 0.18);
+}
+.scene-book {
+  bottom: 100%;
+  width: 18%; height: 380%;
+  border-radius: 3px 3px 0 0;
+}
+.scene-book--1 { left: 6%; background: #b9bcc8; }
+.scene-book--2 { left: 25%; width: 24%; background: #f2a43a; height: 400%; }
+.scene-pot {
+  bottom: 100%; right: 8%;
+  width: 26%; height: 230%;
+  border-radius: 20% 20% 45% 45%;
+  background: #fff;
+}
+.scene-pot i {
+  left: 28%; bottom: 80%;
+  width: 44%; height: 120%;
+  border-radius: 50% 50% 40% 40%;
+  background: #8ccf4a;
+}
+
+.scene-board {
+  left: 60%; top: 3%;
+  width: 34%; height: 25%;
+  border: 1.1vw solid #ecd7a8;
+  border-radius: 16px;
+  background: #9d7e6a;
+  box-shadow: 0 16px 30px rgba(80, 50, 10, 0.2);
+}
+.scene-note {
+  width: 26%; height: 52%;
+  background: #b9d3ef;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+.scene-note--1 { left: 10%; top: 10%; transform: rotate(-5deg); }
+.scene-note--2 { right: 8%; top: 38%; background: #fbfbf8; transform: rotate(6deg); }
+.scene-note i {
+  left: 10%; top: -10%;
+  width: 30%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: #e5636d;
+}
+
+.scene-frame {
+  right: -6%; top: 26%;
+  width: 10%; height: 13%;
+  border: 0.8vw solid #9cc0ee;
+  border-radius: 12px;
+  background: #e7f0fb;
+}
+
+.scene-desk {
+  left: 22%; top: 55%;
+  width: 66%; height: 6%;
+  border-radius: 14px;
+  background: #fbfaf7;
+  box-shadow: 0 14px 26px rgba(80, 50, 10, 0.18);
+}
+.scene-leg {
+  top: 90%;
+  width: 3%; height: 420%;
+  border-radius: 0 0 6px 6px;
+  background: #d9b98a;
+}
+.scene-leg--1 { left: 6%; }
+.scene-leg--2 { right: 8%; }
+
+.scene-monitor {
+  bottom: 140%;
+  height: 470%;
+  padding: 3% 2%;
+  border: 0.6vw solid #4c4757;
+  border-radius: 12px;
+  background: #2f2d35;
+}
+.scene-monitor--left { left: 14%; width: 30%; }
+.scene-monitor--right { left: 47%; width: 34%; }
+.scene-monitor::after {               /* the monitor stand */
+  content: "";
+  position: absolute;
+  left: 42%; top: 100%;
+  width: 16%; height: 30%;
+  background: #4c4757;
+}
+.scene-monitor i {
+  position: relative;
+  height: 5%;
+  margin: 0 0 5% 0;
+  border-radius: 4px;
+  background: #8fd36a;
+}
+.scene-monitor i:nth-child(3n + 2) { background: #c18cf0; width: 70%; margin-left: 10%; }
+.scene-monitor i:nth-child(3n) { background: #f2a43a; width: 55%; margin-left: 10%; }
+.scene-monitor i:nth-child(4n) { width: 80%; }
+.scene-monitor--left i { background: #6c6a76; width: 50%; }
+
+.scene-cup {
+  left: 9%; bottom: 100%;
+  width: 5%; height: 160%;
+  border-radius: 4px 4px 10px 10px;
+  background: #e8dccb;
+}
+.scene-speaker {
+  right: 6%; bottom: 100%;
+  width: 7%; height: 220%;
+  border-radius: 8px;
+  background: #f2a43a;
+  box-shadow: inset 0 0 0 0.6vw #f7c06a;
+}
+.scene-desktop {
+  right: 16%; bottom: 100%;
+  width: 4.5%; height: 130%;
+  border-radius: 4px;
+  background: repeating-linear-gradient(90deg, #4f8de0 0 30%, #9ec3f2 30% 36%);
+}
+
+.scene-person { left: 40%; top: 38%; width: 18%; height: 44%; }
+.scene-person__head {
+  left: 18%; top: 0;
+  width: 64%; aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 30%, #a77350, #7f5236 70%);
+}
+.scene-person__body {
+  left: 10%; top: 40%;
+  width: 80%; height: 42%;
+  border-radius: 40% 40% 20% 20%;
+  background: #3f3e3d;
+}
+.scene-person__chair {
+  left: 4%; top: 54%;
+  width: 92%; height: 36%;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff, #e9e6e1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.scene-plant { right: -3%; top: 58%; width: 13%; height: 34%; }
+.scene-plant__pot {
+  left: 10%; bottom: 0;
+  width: 80%; height: 45%;
+  border-radius: 12px 12px 30% 30%;
+  background: linear-gradient(180deg, #ffffff 0 30%, #bfa58e 30% 60%, #f3eee8 60%);
+}
+.scene-leaf {
+  bottom: 38%;
+  width: 40%; height: 70%;
+  border-radius: 0 100% 0 100%;
+  background: linear-gradient(135deg, #b6e23d, #5fae22);
+  transform-origin: bottom left;
+}
+.scene-leaf--1 { left: 40%; transform: rotate(-12deg); }
+.scene-leaf--2 { left: 30%; transform: rotate(-60deg); }
+.scene-leaf--3 { left: 50%; transform: rotate(25deg); height: 55%; }
+
+/* 6. About (hologram stage) ------------------------------------------------
+   The section is 360vh tall. Its first 100vh hide behind the hero (negative
+   margin) so the stage is already pinned when the hero lifts away. */
+.about {
+  --scan: 1;                  /* 0 → 1 scan progress; set by main.js */
+  position: relative;
+  z-index: 1;
+  height: 360vh;
+  margin-top: -100vh;
+  margin-top: -100svh;
+  background: var(--blue-deep);
+  border-radius: 0 0 var(--radius-section) var(--radius-section);
+  overflow: clip;
+}
+
+.about__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  color: var(--holo-text);
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 62%, rgba(40, 140, 255, 0.55), transparent 70%),
+    radial-gradient(ellipse at 50% 40%, var(--blue) 0%, #0433a0 45%, var(--blue-deep) 100%);
+}
+
+/* Faint star-like dots. */
+.about__glow {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(140, 220, 255, 0.5) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(140, 220, 255, 0.3) 1px, transparent 1.5px);
+  background-size: 140px 120px, 90px 170px;
+  background-position: 0 0, 40px 60px;
+  opacity: 0.6;
+}
+
+/* Perspective floor grid. */
+.about__floor {
+  position: absolute;
+  left: -50%; right: -50%;
+  bottom: 0;
+  height: 62%;
+  perspective: 600px;
+  -webkit-mask-image: linear-gradient(to top, #000 40%, transparent);
+  mask-image: linear-gradient(to top, #000 40%, transparent);
+}
+.about__grid {
+  position: absolute;
+  inset: -40% 0 0 0;
+  background-image:
+    linear-gradient(rgba(120, 200, 255, 0.28) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, rgba(120, 200, 255, 0.28) 1.5px, transparent 1.5px);
+  background-size: 90px 90px;
+  background-position: center top;
+  transform: rotateX(68deg);
+  transform-origin: 50% 100%;
+}
+
+/* The figure and its platform, centred on the stage. */
+.holo {
+  position: absolute;
+  left: 50%;
+  top: 11%;
+  width: min(23vh, 210px);
+  height: 74%;
+  transform: translateX(-50%);
+}
+
+/* Feet rest on the platform ring: the SVG is bottom-aligned inside this box. */
+.holo__figure {
+  position: absolute;
+  inset: 0 0 9% 0;
+}
+.holo__figure svg { width: 100%; height: 100%; }
+
+/* Solid copy is cut away from the bottom up; the holo copy shows below. */
+.holo__figure--solid { clip-path: inset(0 0 calc(var(--scan) * 100%) 0); }
+.holo__figure--holo  {
+  clip-path: inset(calc((1 - var(--scan)) * 100%) 0 0 0);
+  filter: drop-shadow(0 0 10px rgba(80, 200, 255, 0.8));
+}
+
+.holo__scanline {
+  position: absolute;
+  left: -18%; right: -18%;
+  bottom: calc(9% + var(--scan) * 91%);
+  height: 3px;
+  border-radius: 3px;
+  background: var(--cyan);
+  box-shadow: 0 0 18px 4px rgba(90, 210, 255, 0.8);
+  opacity: calc(1 - var(--scan) * var(--scan) * var(--scan));
+}
+
+.holo__beam {
+  position: absolute;
+  left: -10%; right: -10%;
+  top: 30%; bottom: 10%;
+  background: linear-gradient(to top, rgba(110, 210, 255, 0.45), transparent);
+  clip-path: polygon(22% 100%, 78% 100%, 100% 0, 0 0);
+}
+
+.holo__platform {
+  position: absolute;
+  left: -12%; right: -12%;
+  bottom: 2%;
+  height: 15%;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #0a3c9e, #031c66);
+  box-shadow: 0 18px 40px rgba(0, 0, 30, 0.6), 0 6px 0 #0a2f86, 0 12px 0 #072577;
+}
+.holo__platform span {
+  position: absolute;
+  inset: 12% 10% 30% 10%;
+  border: 3px solid var(--cyan);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(120, 220, 255, 0.6), rgba(30, 120, 230, 0.3));
+  box-shadow: 0 0 22px rgba(90, 210, 255, 0.9), inset 0 0 14px rgba(150, 230, 255, 0.8);
+}
+
+.about__counter {
+  position: absolute;
+  left: 50%;
+  top: calc(11% + 74% + 2%);
+  transform: translateX(-50%);
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(2, 22, 70, 0.75);
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #9ed8ff;
+}
+
+.about__progress { display: none; }   /* mobile only, see section 10 */
+
+/* Info cards with a thin line + dot pointing at the figure. */
+.about__cards { position: absolute; inset: 0; }
+
+.holo-card {
+  position: absolute;
+  padding: 12px 16px;
+  border: 1px solid rgba(130, 205, 255, 0.55);
+  border-radius: 8px;
+  background: rgba(10, 70, 170, 0.35);
+  backdrop-filter: blur(2px);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.js .holo-card:not(.is-visible) { opacity: 0; transform: translateY(10px); }
+
+.holo-card::before,
+.holo-card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+}
+.holo-card::before {                 /* connector line */
+  width: 30px; height: 1px;
+  background: rgba(130, 205, 255, 0.7);
+}
+.holo-card::after {                  /* connector dot */
+  width: 8px; height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: #4fb8ff;
+  box-shadow: 0 0 8px #4fb8ff;
+}
+.holo-card--name::before,
+.holo-card--bio::before  { left: 100%; }
+.holo-card--name::after,
+.holo-card--bio::after   { left: calc(100% + 28px); }
+.holo-card--skills::before { right: 100%; }
+.holo-card--skills::after  { right: calc(100% + 28px); }
+
+.holo-card__title {
+  font-size: 19px;
+  font-weight: 700;
+  color: #fff;
+}
+.holo-card--name  { right: calc(50% + 160px); top: 26%; }
+.holo-card--bio   { right: calc(50% + 150px); top: 52%; max-width: 360px; }
+.holo-card--skills { left: calc(50% + 160px); top: 34%; min-width: 240px; }
+
+.holo-card__locations li,
+.holo-card__list li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+.holo-card__locations svg { width: 13px; height: 13px; flex: none; }
+.holo-card__list { margin-top: 4px; }
+.holo-card__list li { font-size: 13px; line-height: 1.9; }
+.holo-card__list li::before { content: "•"; }
+
+/* 7. Projects (5 + 1 grid) -------------------------------------------------- */
+.projects {
+  position: relative;
+  z-index: 2;                 /* rounded bottom overlaps the contact band */
+  padding: 150px 24px 120px;
+  background: var(--cream);
+  border-radius: 0 0 var(--radius-section) var(--radius-section);
+}
+
+.projects__inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.section-heading { position: relative; margin-bottom: 64px; }
+.tag--small {
+  position: absolute;
+  left: -12px; top: -22px;
+  padding: 5px 7px 3px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Two equal columns; the 6th "special" card naturally lands bottom-right. */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.project-card {
+  display: block;
+  border-radius: 24px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+/* The hover panel grows outward with a box-shadow so nothing shifts. */
+.project-card:hover,
+.project-card:focus-visible {
+  background: var(--sand-dark);
+  box-shadow: 0 0 0 8px var(--sand-dark);
+  outline-offset: 10px;
+}
+
+.project-card__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--sand);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease;
+}
+.project-card__media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.project-card:hover .project-card__media img { transform: scale(1.03); }
+
+.js .project-card:not(.is-visible) .project-card__media { transform: scale(0.8); opacity: 0; }
+.project-card:hover .project-card__media { transform: scale(1.02); }
+
+/* Placeholder picture: tinted box with soft diagonal stripes. */
+.project-card__media--placeholder {
+  display: grid;
+  place-items: center;
+  background:
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0 14px, transparent 14px 28px),
+    linear-gradient(135deg, var(--tint), color-mix(in srgb, var(--tint), #2d2a24 25%));
+}
+.project-card__placeholder-label {
+  padding: 6px 14px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* Round orange arrow that pops in on hover. */
+.project-card__arrow {
+  position: absolute;
+  right: 12px; bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.project-card__arrow svg { width: 22px; height: 22px; }
+.project-card:hover .project-card__arrow,
+.project-card:focus-visible .project-card__arrow { opacity: 1; transform: none; }
+
+.project-card__text { padding-top: 8px; }
+.project-card__title { font-size: 22px; font-weight: 700; line-height: 30px; }
+.project-card__description { font-size: 16px; font-weight: 500; color: var(--ink-soft); }
+
+.project-card--special .project-card__media {
+  display: grid;
+  place-items: center;
+  border: 4px dashed var(--line);
+  background: #e9ded0;
+  color: var(--ink-soft);
+}
+.project-card--special .project-card__media svg { width: 48px; height: 48px; }
+
+.noscript-note { margin-top: 24px; color: var(--ink-soft); }
+
+/* 8. Contact ---------------------------------------------------------------- */
+.contact {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  margin-top: calc(-1 * var(--radius-section));
+  padding: calc(var(--radius-section) + 64px) 9.6% 80px;
+  overflow: hidden;
+  background: var(--beige);
+  border-radius: 0 0 var(--radius-section) var(--radius-section);
+}
+
+.contact__inner { position: relative; z-index: 2; }
+
+.socials { display: flex; gap: 18px; margin-top: 36px; }
+.social {
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--cream);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+.social svg { width: 22px; height: 22px; }
+.social:hover { transform: translateY(-2px); background: #fff; }
+
+.js .section-heading,
+.js .contact__inner { transition: opacity 0.6s ease, transform 0.6s ease; }
+.js .section-heading:not(.is-visible),
+.js .contact__inner:not(.is-visible) { opacity: 0; transform: translateY(24px); }
+
+/* Decorative parcels + letters on the floor. */
+.contact-scene {
+  position: absolute;
+  right: 4%;
+  bottom: 6%;
+  width: min(48vw, 640px);
+  aspect-ratio: 1.6;
+}
+.contact-scene * { position: absolute; display: block; }
+.parcel {
+  border-radius: 6px;
+  background: linear-gradient(90deg, #d9bc98 0 50%, #cdac85 50%);
+  box-shadow: 0 18px 30px rgba(90, 60, 20, 0.18);
+}
+.parcel::before {                    /* tape */
+  content: "";
+  position: absolute;
+  left: 44%; top: 0; bottom: 0;
+  width: 12%;
+  background: rgba(150, 110, 70, 0.35);
+}
+.parcel::after {                     /* shipping label */
+  content: "";
+  position: absolute;
+  right: 10%; top: 14%;
+  width: 18%; height: 18%;
+  border-radius: 2px;
+  background: #f6f1ea;
+}
+.parcel--1 { right: 6%; bottom: 0; width: 30%; height: 34%; }
+.parcel--2 { right: 34%; bottom: 0; width: 22%; height: 26%; }
+.parcel--3 { right: 14%; bottom: 34%; width: 34%; height: 30%; }
+.parcel--4 { right: 22%; bottom: 64%; width: 22%; height: 22%; }
+.letter {
+  width: 14%; height: 9%;
+  border-radius: 2px;
+  background: linear-gradient(160deg, #ffffff 0 50%, #e8eaee 50%);
+  box-shadow: 0 6px 10px rgba(90, 60, 20, 0.12);
+}
+.letter--1 { left: 4%; bottom: 4%; transform: rotate(-14deg); }
+.letter--2 { left: 30%; bottom: 14%; transform: rotate(10deg); background: #c3d4e8; }
+.letter--3 { left: 18%; bottom: -2%; transform: rotate(4deg); }
+.contact-figure { left: -36%; bottom: -4%; height: 125%; width: auto; }
+
+/* 9. Footer ----------------------------------------------------------------- */
+.site-footer {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-areas:
+    ".    top  links"
+    "meta meta meta";
+  align-items: center;
+  row-gap: 24px;
+  padding: 32px 20px 40px;
+  font-size: 14px;
+}
+
+.round-button {
+  grid-area: top;
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+.round-button svg { width: 22px; height: 22px; }
+.round-button:hover { transform: translateY(-2px); background: var(--sand); }
+
+.site-footer__links {
+  grid-area: links;
+  justify-self: end;
+  display: flex;
+  gap: 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.site-footer__links a:hover { text-decoration: underline; }
+
+.site-footer__meta {
+  grid-area: meta;
+  text-align: center;
+  line-height: 2;
+}
+
+/* 10. Small screens --------------------------------------------------------- */
+@media (max-width: 1100px) {
+  .holo-card--name  { right: calc(50% + 120px); }
+  .holo-card--bio   { right: calc(50% + 110px); max-width: 280px; }
+  .holo-card--skills { left: calc(50% + 120px); min-width: 0; }
+}
+
+@media (max-width: 760px) {
+  :root { --radius-section: 28px; --header-height: 76px; }
+
+  /* On phones only the logo stays in the header. */
+  .site-nav,
+  .site-header__cta { display: none; }
+
+  .hero__text {
+    left: 19%;
+    top: 15%;
+    transform: none;
+  }
+  .hero__title { font-size: 56px; }
+  .tag--hero { right: -26px; bottom: -22px; font-size: 17px; }
+
+  .hero-scene {
+    right: -14%;
+    bottom: 0;
+    width: 135vw;
+  }
+  .scene-rug { box-shadow: 0 0 0 6vw #f2b845, 0 0 0 12vw #ec8a26; }
+
+  /* About: smaller figure up top, cards stacked at the bottom. */
+  .holo { top: 7%; height: 62%; width: min(30vh, 46vw); }
+  .about__counter { display: none; }
+  .about__cards {
+    inset: auto 16px 64px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .holo-card {
+    position: static;
+    max-width: none;
+    padding: 10px 14px;
+    background: rgba(10, 60, 160, 0.55);
+  }
+  .holo-card::before,
+  .holo-card::after { display: none; }
+  .holo-card--skills .holo-card__list { display: flex; flex-wrap: wrap; column-gap: 14px; }
+  .holo-card--skills .holo-card__list li { line-height: 1.6; }
+  .holo-card__title { font-size: 16px; }
+  .holo-card__locations { display: flex; flex-wrap: wrap; column-gap: 14px; }
+
+  .about__progress {
+    position: absolute;
+    left: 18%; right: 18%;
+    bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .about__progress-bar {
+    flex: 1;
+    height: 2px;
+    background: rgba(130, 205, 255, 0.25);
+  }
+  .about__progress-bar i {
+    display: block;
+    width: calc(var(--scan) * 100%);
+    height: 100%;
+    background: #6fd0ff;
+  }
+
+  .projects { padding: 110px 16px 80px; }
+  .section-heading { margin-bottom: 40px; margin-left: 12px; }
+  .project-grid { grid-template-columns: 1fr; gap: 32px; }
+
+  .contact { padding: calc(var(--radius-section) + 48px) 16px 0; min-height: 0; }
+  .contact .section-title { font-size: 48px; }
+  .contact-scene {
+    position: relative;
+    right: auto; bottom: auto;
+    width: 100%;
+    margin-top: 40px;
+  }
+  .contact-figure { left: 4%; bottom: 2%; height: 100%; }
+
+  .site-footer {
+    grid-template-columns: 1fr;
+    grid-template-areas: "top" "links" "meta";
+    justify-items: center;
+  }
+  .site-footer__links { justify-self: center; }
+}
+
+/* 11. Reduced motion -------------------------------------------------------
+   Visitors who ask their system for less motion get a still page: no
+   tilting hero, no typing, no fade-ins. Everything is simply shown. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero { transform: none; border-radius: 0; box-shadow: none; }
+  .js .holo-card:not(.is-visible),
+  .js .project-card:not(.is-visible) .project-card__media,
+  .js .section-heading:not(.is-visible),
+  .js .contact__inner:not(.is-visible) { opacity: 1; transform: none; }
+}
