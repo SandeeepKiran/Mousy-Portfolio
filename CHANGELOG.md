@@ -3,6 +3,18 @@
 All notable changes to Sandeep Kiran's Portfolio. Newest first.
 Versions follow `MAJOR.MINOR.PATCH`; every version gets a git tag and a GitHub Release.
 
+## 1.3.0 — 2026-10-17
+
+### Genshin site (`MousyGenshinPreview`)
+
+- New **Light / Dark** switch next to **Fireflies**. It also swaps the README's light/dark images.
+  The choice is remembered; until then the page follows the system theme.
+- Both switches are secret: invisible until the top-right corner is hovered (or reached with the
+  keyboard), and they fade out again afterwards.
+- Light mode is now a soft warm cream (`#f6f0e4`) instead of pure white.
+- Fireflies off no longer moves the content: the card keeps its place, size and shadow, and only
+  the colours change, so page and card share one solid background.
+
 ## 1.2.0 — 2026-10-17
 
 ### Genshin site (`MousyGenshinPreview`)
