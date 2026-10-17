@@ -3,6 +3,14 @@
 All notable changes to Sandeep Kiran's Portfolio. Newest first.
 Versions follow `MAJOR.MINOR.PATCH`; every version gets a git tag and a GitHub Release.
 
+## 1.5.0 — 2026-10-17
+
+### Genshin site (`MousyGenshinPreview`)
+
+- **Fireflies off** is now autumn: a golden-amber track with three small maple leaves swaying in it,
+  and a red maple leaf as the knob. Switching on spins the leaf away into the glowing white orb,
+  the leaves drop out, and the green fill and stars come in. The "on" look is unchanged.
+
 ## 1.4.0 — 2026-10-17
 
 ### Genshin site (`MousyGenshinPreview`)
