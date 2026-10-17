@@ -3,6 +3,26 @@
 All notable changes to Sandeep Kiran's Portfolio. Newest first.
 Versions follow `MAJOR.MINOR.PATCH`; every version gets a git tag and a GitHub Release.
 
+## 1.1.0 — 2026-10-17
+
+### Genshin site (`MousyGenshinPreview`, the live main address)
+
+- Firefly backgrounds from HoYoWiki's character pages, changing element as you scroll:
+  Anemo → Geo → Electro → Dendro → Hydro → Pyro → Nod-Krai (white) → Cryo → Abyss (black).
+  The seven real elements are HoYoWiki's own videos, unchanged; Nod-Krai and Abyss are recoloured from them.
+  Videos load only when their part of the page is reached; reduced-motion visitors get still images.
+- HoYoWiki's cursor, plus a matching lit-up cursor for links and buttons (HoYoWiki itself falls
+  back to the plain system hand there).
+- Contact buttons get an element seal on hover, in HoYoWiki's exact colours: Email = Pyro,
+  Telegram = Cryo, LinkedIn = Hydro, Portfolio = Geo, Resume = Electro.
+- Tab title is now "Sandeeep's Portfolio", with the Venti blob as the tab icon.
+- The "Preview of github.com/SandeeepKiran · snapshot" bar is gone.
+
+### GitHub profile README
+
+- New Resume button (Keqing's Starward Sword icon) linking to the QA Manager resume PDF.
+- AI Evaluation icon is now Nahida's All Schemes to Know, in Dendro green (was Durin).
+
 ## 1.0.2 — 2026-10-17
 
 ### Mousy-Portfolio
