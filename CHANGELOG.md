@@ -3,6 +3,20 @@
 All notable changes to Sandeep Kiran's Portfolio. Newest first.
 Versions follow `MAJOR.MINOR.PATCH`; every version gets a git tag and a GitHub Release.
 
+## 1.4.0 — 2026-10-17
+
+### Genshin site (`MousyGenshinPreview`)
+
+- New toggle artwork. **Light / Dark** is a little sky: day = blue sky, fluffy clouds and a gold sun
+  with a red-orange rim; night = violet sky with twinkling mini stars and a ")" half moon with
+  craters. Switching slides the knob, flashes a dusk-pink sky, sinks the clouds, pops the stars in
+  one by one, and slides the moon's shadow in. Dark stays on the right.
+- **Fireflies** uses the same artwork: the same green fill when on, now with mini stars inside.
+- The switches show for about 3.5 seconds when the page loads, then fade out (hover the top-right
+  corner to bring them back).
+- Defaults unchanged: the theme follows the visitor's system setting, and fireflies are on, until
+  the visitor picks otherwise.
+
 ## 1.3.0 — 2026-10-17
 
 ### Genshin site (`MousyGenshinPreview`)
