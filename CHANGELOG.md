@@ -3,6 +3,25 @@
 All notable changes to Sandeep Kiran's Portfolio. Newest first.
 Versions follow `MAJOR.MINOR.PATCH`; every version gets a git tag and a GitHub Release.
 
+## 1.2.0 — 2026-10-17
+
+### Genshin site (`MousyGenshinPreview`)
+
+- New **Fireflies** switch at the top right. Off = the plain page from before (no video, no panel);
+  the choice is remembered in that browser.
+- Firefly order: Anemo is always first; the other eight elements come in a new random order on
+  every visit.
+- Fix: changing element was nearly instant. It now cross-fades smoothly over 1.6 seconds, however
+  fast you scroll, and each element still shows as its own distinct colour. The next element's
+  video is loaded ahead of time.
+- Every original image (`assets/source/`) is kept in the site build again, plus the original
+  HoYoWiki ring and cursor.
+
+### GitHub profile README
+
+- ChatGPT, Codex and Excel pills now have their logos (OpenAI and Excel). shields.io dropped these
+  brand logos, so they are embedded from Simple Icons v11.
+
 ## 1.1.0 — 2026-10-17
 
 ### Genshin site (`MousyGenshinPreview`, the live main address)
