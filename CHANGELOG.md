@@ -3,6 +3,23 @@
 All notable changes to Sandeep Kiran's Portfolio. Newest first.
 Versions follow `MAJOR.MINOR.PATCH`; every version gets a git tag and a GitHub Release.
 
+## 1.0.1 — 2026-10-17
+
+### GitHub profile README
+
+- The blossom next to "Mousy" is now the real 3D sakura from Sandeep's palette photo (he cut it out
+  with a free background remover). It sways gently.
+- "More about me" is open by default.
+- New `assets/source/`: every original image behind the profile (sakura, Venti blob, wiki
+  background, cards, Albedo splash, Mondstadt, the grey Genshin skill icons) with a README of where
+  each came from. New `tools/`: the helper scripts that tint the icons, render the cards and build
+  the README and preview.
+- (Tried a redraw of Albedo's splash-art seal in the stats ring; reverted to the 1.0.0 seal.)
+
+### Mousy-Portfolio
+
+- `MousyGenshinPreview` refreshed to match.
+
 ## 1.0.0 — 2026-10-17
 
 The first release: one repo for every portfolio design, a switch for the main site, and a
