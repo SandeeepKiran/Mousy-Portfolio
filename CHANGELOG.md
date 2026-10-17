@@ -3,6 +3,16 @@
 All notable changes to Sandeep Kiran's Portfolio. Newest first.
 Versions follow `MAJOR.MINOR.PATCH`; every version gets a git tag and a GitHub Release.
 
+## 1.0.2 — 2026-10-17
+
+### Mousy-Portfolio
+
+- The main site now shows the Genshin design: the `sandeeepkiran.github.io` switch's `live.txt`
+  says `MousyGenshinPreview` (was `jonny`).
+- Fix: `build-site.sh` turned the word in `live.txt` into lowercase, so a branch with capitals
+  (`MousyGenshinPreview`) could never be the live one and the deploy failed. It now matches the
+  branch without caring about capitals and uses the branch's real spelling.
+
 ## 1.0.1 — 2026-10-17
 
 ### GitHub profile README

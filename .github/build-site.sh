@@ -16,7 +16,7 @@ set -euo pipefail
 
 repo=$1
 out=$2
-live=$(printf '%s' "$3" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
+live=$(printf '%s' "$3" | tr -d '[:space:]')
 
 rm -rf "$out"
 mkdir -p "$out"
@@ -36,10 +36,15 @@ echo "Design branches found:"
 echo "$branches" | sed 's/^/  - /'
 echo "Live branch (from live.txt): $live"
 
-if ! grep -qx -- "$live" <<<"$branches"; then
+# Match live.txt without caring about capitals, then use the branch's real spelling:
+# git and the web address are case-sensitive, so 'jonny' must still find 'jonny' and
+# 'mousygenshinpreview' must still find 'MousyGenshinPreview'.
+match=$(grep -ix -- "$live" <<<"$branches" | head -n 1 || true)
+if [[ -z $match ]]; then
   echo "::error::live.txt says '$live', but there is no branch with that name. Fix the word in live.txt."
   exit 1
 fi
+live=$match
 
 export_branch "$live" "$out"
 
